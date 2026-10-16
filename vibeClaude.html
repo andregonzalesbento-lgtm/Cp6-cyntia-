@@ -311,6 +311,12 @@
     .skills   { background: linear-gradient(180deg, #b3d8bd 0%, #a9d0b5 100%); }
     .projetos .wrap, .skills .wrap { display: flex; flex-direction: column; gap: 56px; }
     .grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr)); gap: 24px; align-items: start; }
+    @media (min-width: 1050px) {
+      .grade { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+      .grade .cartao { grid-column: span 2; }
+      .grade .cartao:nth-child(4) { grid-column: 2 / span 2; }
+      .grade .cartao:nth-child(5) { grid-column: 4 / span 2; }
+    }
     .cartao { padding: clamp(22px, 3vw, 32px); background: #f5fbf4; border: 1.5px solid var(--v8); border-radius: 4px; display: flex; flex-direction: column; gap: 12px; }
     .cartao--escuro { background: var(--v7); color: var(--v1); border-color: var(--v7); }
     .cartao small { font-size: 14px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--v5); }
@@ -332,8 +338,9 @@
       padding-bottom: clamp(60px, 8vw, 100px);
     }
     .gostos .wrap { display: flex; flex-direction: column; gap: 56px; }
-    .quadro { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 22px 18px; padding: 8px; }
+    .quadro { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 22px 18px; padding: 8px 8px 140px; }
     .papel {
+      position: relative;
       padding: 22px 22px 20px;
       border-radius: 3px;
       display: flex; flex-direction: column; justify-content: space-between; gap: 18px;
@@ -341,6 +348,55 @@
     }
     .papel h3 { font-weight: 800; font-size: clamp(34px, 4vw, 58px); line-height: .9; letter-spacing: -.045em; overflow-wrap: normal; }
     .papel span { font-family: var(--f-mao); font-weight: 600; font-size: 24px; line-height: 1; }
+    .papel--interativo { cursor: pointer; }
+    .papel--interativo:focus-visible { outline: 3px solid var(--sol); outline-offset: 5px; }
+    .papel--interativo.revelando { z-index: 12; }
+    .papel__artes { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+    .papel__arte {
+      position: absolute;
+      display: block;
+      width: 104px;
+      aspect-ratio: 2.5 / 3.5;
+      object-fit: cover;
+      border: 4px solid #f5fbf4;
+      border-radius: 4px;
+      background: #f5fbf4;
+      box-shadow: 0 12px 28px rgba(5, 31, 32, .35);
+      opacity: 0;
+      transform: translateY(12px) scale(.9) rotate(var(--giro, 0deg));
+      transition: opacity .32s ease, transform .48s cubic-bezier(.2,.75,.25,1);
+      transition-delay: var(--atraso, 0s);
+    }
+    .papel h3, .papel span { position: relative; z-index: 4; }
+    .papel--interativo.revelando .papel__arte {
+      opacity: 1;
+      transform: translateY(0) scale(1) rotate(var(--giro, 0deg));
+    }
+    @media (hover: hover) {
+      .papel--interativo:hover, .papel--interativo:focus-visible { z-index: 12; }
+      .papel--interativo:hover .papel__arte, .papel--interativo:focus-visible .papel__arte {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotate(var(--giro, 0deg));
+      }
+    }
+    /* Capas espalhadas pela lateral e pela base de cada cartao. */
+    .papel__arte--minecraft { left: -92px; top: 34px; width: 78px; --giro: -9deg; --atraso: 0s; }
+    .papel__arte--valorant { left: 8px; top: calc(100% + 14px); width: 78px; --giro: 7deg; --atraso: .06s; }
+    .papel__arte--souls { right: 8px; top: calc(100% + 22px); width: 78px; --giro: -6deg; --atraso: .12s; }
+    .papel__arte--breaking { left: -86px; top: 38px; width: 78px; --giro: -8deg; --atraso: 0s; }
+    .papel__arte--walking { left: 8px; top: calc(100% + 12px); width: 78px; --giro: 5deg; --atraso: .05s; }
+    .papel__arte--mentalist { right: 8px; top: calc(100% + 20px); width: 78px; --giro: -5deg; --atraso: .1s; }
+    .papel__arte--daggerheart { left: -86px; top: 46px; width: 78px; --giro: -8deg; --atraso: 0s; }
+    .papel__arte--dnd { left: 8px; top: calc(100% + 12px); width: 78px; --giro: 5deg; --atraso: .06s; }
+    .papel__arte--ordem { right: 8px; top: calc(100% + 20px); width: 78px; --giro: -6deg; --atraso: .12s; }
+    .papel__arte--greninja { left: -8px; top: -110px; width: 78px; --giro: -9deg; --atraso: 0s; }
+    .papel__arte--victreebel { right: -94px; top: -52px; width: 78px; --giro: 7deg; --atraso: .04s; }
+    .papel__arte--jolteon { right: -100px; top: 60px; width: 78px; --giro: 10deg; --atraso: .08s; }
+    .papel__arte--tyranitar { right: -94px; bottom: -88px; width: 78px; --giro: -7deg; --atraso: .12s; }
+    .papel__arte--gardevoir { left: 80px; top: -126px; width: 78px; --giro: 6deg; --atraso: .16s; }
+    @media (prefers-reduced-motion: reduce) {
+      .papel__arte { transition: none; }
+    }
     .papel--1 { flex: 1.35 1 260px; min-height: 230px; background: var(--v7); color: var(--v1); transform: rotate(-1.6deg); }
     .papel--2 { flex: 1 1 200px; min-height: 180px; background: var(--sol); color: var(--v8); transform: rotate(1.8deg); margin-top: 26px; }
     .papel--3 { flex: 1 1 200px; min-height: 250px; background: var(--v1); color: var(--v8); transform: rotate(1.2deg); }
@@ -350,6 +406,18 @@
       .papel h3 { font-size: clamp(22px, 7.4vw, 30px); }
       .papel span { font-size: 22px; }
       .papel--2, .papel--4 { margin-top: 14px; }
+      .papel--interativo { flex-basis: 100%; }
+      .papel--interativo .papel__artes {
+        position: relative; inset: auto; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 8px;
+        max-height: 0; margin-top: 0; overflow: hidden; opacity: 0;
+        transition: max-height .4s ease, margin-top .3s ease, opacity .3s ease;
+      }
+      .papel--interativo.revelando .papel__artes { max-height: 150px; margin-top: 12px; opacity: 1; }
+      .papel--interativo .papel__arte {
+        position: static; flex: 0 0 auto; width: 42px; aspect-ratio: 2.5 / 3.5; border-width: 2px;
+        opacity: 1; transform: none; transition: none;
+      }
+      .quadro { padding-bottom: 8px; }
     }
 
     /* cordilheira que leva do verde claro ao escuro */
@@ -370,16 +438,20 @@
     .mapa svg { position: absolute; inset: 0; width: 100%; height: 100%; }
     .mapa path { fill: none; stroke: rgba(218, 241, 222, .5); stroke-width: 1.6; stroke-linecap: round; stroke-dasharray: 1 7; vector-effect: non-scaling-stroke; }
     .no { position: absolute; transform: translate(-50%, -50%); white-space: nowrap; }
-    .no--centro { font-weight: 800; letter-spacing: -.04em; font-size: clamp(26px, 4.6vw, 64px); line-height: 1; padding: .3em .5em .36em; background: var(--sol); color: var(--v8); border-radius: 6px; transform: translate(-50%, -50%) rotate(-2deg); }
-    .no--hub { font-weight: 700; font-size: clamp(13px, 1.5vw, 20px); letter-spacing: -.01em; padding: .5em .9em; background: var(--v1); color: var(--v8); border-radius: 4px; }
+    .no--centro { z-index: 4; font-weight: 800; letter-spacing: -.04em; font-size: clamp(26px, 4.6vw, 64px); line-height: 1; padding: .3em .5em .36em; background: var(--sol); color: var(--v8); border-radius: 6px; box-shadow: 0 8px 20px rgba(0, 0, 0, .18); transform: translate(-50%, -50%) rotate(-2deg); }
+    .no--hub { z-index: 2; font-weight: 700; font-size: clamp(13px, 1.5vw, 20px); letter-spacing: -.01em; padding: .5em .9em; background: var(--v1); color: var(--v8); border-radius: 4px; box-shadow: 0 4px 0 rgba(233, 185, 73, .55); }
     .no--folha { font-family: var(--f-mao); font-weight: 600; font-size: clamp(16px, 2.1vw, 30px); line-height: 1; padding: .1em .3em; border-bottom: 2px solid rgba(233, 185, 73, .8); }
     /* em telas menores, os ramos viram cartões para preservar as relações */
-    .lista { display: none; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 16px; }
+    .lista { display: none; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 16px; max-width: 900px; margin-inline: auto; }
+    .lista__centro { grid-column: 1 / -1; justify-self: center; margin-bottom: 4px; padding: 10px 20px; border-radius: 5px; background: var(--sol); color: var(--v8); box-shadow: 0 6px 16px rgba(0, 0, 0, .18); font-size: clamp(25px, 7vw, 36px); font-weight: 800; letter-spacing: -.035em; }
     .lista__ramo { min-width: 0; padding: 20px; border: 1px solid rgba(218, 241, 222, .28); border-radius: 6px; background: rgba(218, 241, 222, .06); }
     .lista__ramo h3 { display: inline-block; margin-bottom: 14px; padding: 7px 11px; border-radius: 4px; background: var(--v1); color: var(--v8); font-size: 17px; line-height: 1.25; }
     .lista__ramo ul { display: flex; flex-wrap: wrap; gap: 10px 14px; }
     .lista__ramo li { font-family: var(--f-mao); font-weight: 600; font-size: clamp(21px, 5vw, 26px); line-height: 1.1; padding: 2px 4px; border-bottom: 2px solid rgba(233, 185, 73, .8); }
     @media (max-width: 900px) { .mapa { display: none; } .lista { display: grid; } }
+    @media (prefers-reduced-motion: reduce) {
+      .js .bloco.aparece:hover, .js .cartao.aparece:hover { transform: none; box-shadow: none; }
+    }
 
     /* 6.5 Contato */
     .contato {
@@ -406,11 +478,21 @@
     .js .papel--2.entrou { transform: rotate(1.8deg); }
     .js .papel--3.entrou { transform: rotate(1.2deg); }
     .js .papel--4.entrou { transform: rotate(-2deg); }
+    .js .bloco.aparece, .js .cartao.aparece { transition: opacity .7s ease, transform .42s cubic-bezier(.2,.75,.25,1), box-shadow .42s ease; }
+    .js .bloco.aparece.em-foco, .js .cartao.aparece.em-foco { z-index: 8; transform: translateY(-4px) scale(1.012); box-shadow: 0 12px 26px rgba(5, 31, 32, .13); }
+    @media (hover: hover) {
+      .js .bloco.aparece:hover, .js .cartao.aparece:hover { z-index: 8; transform: translateY(-4px) scale(1.012); box-shadow: 0 12px 26px rgba(5, 31, 32, .13); }
+    }
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .js .aparece { opacity: 1; transition: none; }
       .js .papel--1.aparece, .js .papel--2.aparece, .js .papel--3.aparece, .js .papel--4.aparece { transition: none; }
+      .js .bloco.aparece, .js .cartao.aparece { transition: none; }
+      .js .bloco.aparece.em-foco, .js .cartao.aparece.em-foco { transform: none; box-shadow: none; }
+    }
+    @media (prefers-reduced-motion: reduce) and (hover: hover) {
+      .js .bloco.aparece:hover, .js .cartao.aparece:hover { transform: none; box-shadow: none; }
     }
 
     /* =========================================================
@@ -637,10 +719,34 @@
           <span class="mao">o que me faz perder a hora</span>
         </div>
         <div class="quadro">
-          <article class="papel papel--1 aparece"><h3>Jogos</h3><span>Minecraft, Valorant e a franquia Souls</span></article>
-          <article class="papel papel--2 aparece"><h3>Séries</h3><span>Breaking Bad, The Walking Dead, The Mentalist e Shadowhunters</span></article>
-          <article class="papel papel--3 aparece"><h3>RPG</h3><span>Daggerheart, D&amp;D e Ordem Paranormal</span></article>
-          <article class="papel papel--4 aparece"><h3>Pokémon</h3><span>meu time dos sonhos: Greninja, Victreebel, Jolteon, Tyranitar e Gardevoir</span></article>
+          <article class="papel papel--1 papel--interativo aparece" role="button" tabindex="0" aria-pressed="false" aria-label="Mostrar capas dos jogos">
+            <h3>Jogos</h3><span>Minecraft, Valorant e a franquia Souls</span>
+            <div class="papel__artes" aria-hidden="true">
+              <img class="papel__arte papel__arte--minecraft" src="assets/gostos/minecraft.jpg" alt="" loading="lazy" decoding="async">
+              <img class="papel__arte papel__arte--valorant" src="assets/gostos/valorant.png" alt="" loading="lazy" decoding="async">
+              <img class="papel__arte papel__arte--souls" src="assets/gostos/dark-souls-iii.jpg" alt="" loading="lazy" decoding="async">
+            </div>
+          </article>
+          <article class="papel papel--2 papel--interativo aparece" role="button" tabindex="0" aria-pressed="false" aria-label="Mostrar capas das séries"><h3>Séries</h3><span>Breaking Bad, The Walking Dead, The Mentalist e Shadowhunters</span>            <div class="papel__artes" aria-hidden="true">
+              <img class="papel__arte papel__arte--breaking" src="assets/gostos/breaking-bad.jpg" alt="" loading="lazy" decoding="async">
+              <img class="papel__arte papel__arte--walking" src="assets/gostos/walking-dead.jpg" alt="" loading="lazy" decoding="async">
+              <img class="papel__arte papel__arte--mentalist" src="assets/gostos/mentalist.jpg" alt="" loading="lazy" decoding="async">
+            </div></article>
+          <article class="papel papel--3 papel--interativo aparece" role="button" tabindex="0" aria-pressed="false" aria-label="Mostrar capas dos RPGs"><h3>RPG</h3><span>Daggerheart, D&amp;D e Ordem Paranormal</span>            <div class="papel__artes" aria-hidden="true">
+              <img class="papel__arte papel__arte--daggerheart" src="assets/gostos/daggerheart.png" alt="" loading="lazy" decoding="async">
+              <img class="papel__arte papel__arte--dnd" src="assets/gostos/dnd.jpg" alt="" loading="lazy" decoding="async">
+              <img class="papel__arte papel__arte--ordem" src="assets/gostos/ordem-paranormal.png" alt="" loading="lazy" decoding="async">
+            </div></article>
+          <article class="papel papel--4 papel--interativo aparece" role="button" tabindex="0" aria-pressed="false" aria-label="Mostrar cartas ilustradas do meu time Pokémon">
+            <h3>Pokémon</h3><span>meu time dos sonhos: Greninja, Victreebel, Jolteon, Tyranitar e Gardevoir</span>
+            <div class="papel__artes" aria-hidden="true">
+              <img class="papel__arte papel__arte--greninja" src="assets/gostos/greninja.png" alt="" loading="lazy" decoding="async">
+              <img class="papel__arte papel__arte--victreebel" src="assets/gostos/victreebel.png" alt="" loading="lazy" decoding="async">
+              <img class="papel__arte papel__arte--jolteon" src="assets/gostos/jolteon.png" alt="" loading="lazy" decoding="async">
+              <img class="papel__arte papel__arte--tyranitar" src="assets/gostos/tyranitar.png" alt="" loading="lazy" decoding="async">
+              <img class="papel__arte papel__arte--gardevoir" src="assets/gostos/gardevoir.png" alt="" loading="lazy" decoding="async">
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -722,6 +828,62 @@
         itens.forEach(function (el) { el.classList.add('entrou'); });
       }
 
+      /* ---------- 1.1 Capas e cartas na seção Gostos ---------- */
+      /* Um cartao de profissao/projeto recebe o foco ao atravessar o centro da tela. */
+      var focaveis = document.querySelectorAll('.profissao .bloco, .projetos .cartao');
+      if (!reduzir && focaveis.length) {
+        var focoAtual = null, focoPendente = false;
+        function atualizarFocoRolagem() {
+          focoPendente = false;
+          var meio = window.innerHeight / 2, faixa = window.innerHeight * .12;
+          var candidatos = Array.prototype.filter.call(focaveis, function (el) {
+            var r = el.getBoundingClientRect();
+            return r.bottom > meio - faixa && r.top < meio + faixa;
+          });
+          candidatos.sort(function (a, b) {
+            var ra = a.getBoundingClientRect(), rb = b.getBoundingClientRect();
+            return Math.abs((ra.top + ra.bottom) / 2 - meio) - Math.abs((rb.top + rb.bottom) / 2 - meio);
+          });
+          var proximo = candidatos[0] || null;
+          if (proximo === focoAtual) return;
+          if (focoAtual) focoAtual.classList.remove('em-foco');
+          focoAtual = proximo;
+          if (focoAtual) focoAtual.classList.add('em-foco');
+        }
+        window.addEventListener('scroll', function () {
+          if (!focoPendente) {
+            focoPendente = true;
+            window.requestAnimationFrame(atualizarFocoRolagem);
+          }
+        }, { passive: true });
+        window.addEventListener('resize', atualizarFocoRolagem);
+        atualizarFocoRolagem();
+      }
+
+      var interativos = document.querySelectorAll('.papel--interativo');
+      function alternarArtes(cartao) {
+        var mostrar = !cartao.classList.contains('revelando');
+        cartao.classList.toggle('revelando', mostrar);
+        cartao.setAttribute('aria-pressed', mostrar ? 'true' : 'false');
+      }
+      interativos.forEach(function (cartao) {
+        cartao.addEventListener('click', function () {
+          if (window.matchMedia('(hover: none)').matches) {
+            alternarArtes(cartao);
+            cartao.blur();
+          }
+        });
+        cartao.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            alternarArtes(cartao);
+          } else if (e.key === 'Escape' && cartao.classList.contains('revelando')) {
+            cartao.classList.remove('revelando');
+            cartao.setAttribute('aria-pressed', 'false');
+          }
+        });
+      });
+
       /* ---------- 2. Nome desce atrás da montanha + paralaxe ----------
          No topo o nome fica em cima dos picos; ao rolar ele desce devagar e termina ~50% coberto.
          As alturas são calculadas pelo desenho real das montanhas (funciona em qualquer largura). */
@@ -798,6 +960,10 @@
 
       var mapa = document.getElementById('mapa');
       var lista = document.getElementById('lista');
+      var centroLista = document.createElement('div');
+      centroLista.className = 'lista__centro';
+      centroLista.textContent = MENTE.centro.rotulo;
+      lista.appendChild(centroLista);
       var NS = 'http://www.w3.org/2000/svg';
       var svg = document.createElementNS(NS, 'svg');
       svg.setAttribute('viewBox', '0 0 1000 625');
