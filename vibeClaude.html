@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Andre Bento</title>
+  <meta name="description" content="Andre Bento, 19 anos. Estudante de Engenharia de Software na FIAP em busca de estágio em tecnologia. Financeiro de comex na ONE. Projetos, skills e contato.">
+  <meta name="theme-color" content="#DAF1DE">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="Andre Bento · Portfólio">
+  <meta property="og:description" content="Engenharia de Software na FIAP, financeiro na ONE. Projetos, skills e um pouco do que passa pela minha cabeça.">
+  <!-- TROCAR depois do deploy: URL absoluta da imagem (envie og-image.png junto com o site) -->
+  <meta property="og:image" content="https://SEU-DOMINIO/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23163832'/%3E%3Cpath d='M6 50 L24 22 L34 38 L42 28 L58 50Z' fill='%236BA06F'/%3E%3Ccircle cx='46' cy='16' r='7' fill='%23E9B949'/%3E%3C/svg%3E">
+
+  <!-- Marca a página como "com JavaScript" antes de pintar (evita piscar nas animações) -->
+  <script>document.documentElement.classList.add('js');</script>
+
+  <!-- Fontes (Google Fonts): Bricolage Grotesque (tudo) e Caveat (anotações à mão) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Caveat:wght@500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Caveat:wght@500;600&display=swap">
+
+  <style>
+    /* =========================================================
+       1. VARIÁVEIS  ->  mude cores e fontes só aqui
+       ========================================================= */
+    :root {
+      /* Paleta verde (do menta claro ao verde quase preto) */
+      --v1: #DAF1DE;
+      --v2: #8EB69B;
+      --v3: #6BA06F;
+      --v4: #507D5A;
+      --v5: #235347;
+      --v6: #163832;
+      --v7: #0B2B26;
+      --v8: #051F20;
+
+      /* Dourado do pôr do sol (pouco, só em detalhes) */
+      --sol: #E9B949;
+      --sol-escuro: #B8821A;
+
+      --f-texto: 'Bricolage Grotesque', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+      --f-mao:   'Caveat', 'Segoe Print', 'Bradley Hand', cursive;
+
+      --gutter: clamp(16px, 4vw, 56px);
+      --largura: 1200px;
+    }
+
+    /* =========================================================
+       2. BASE
+       ========================================================= */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--v8);
+      color: var(--v7);
+      font-family: var(--f-texto);
+      font-size: 18px;
+      line-height: 1.6;
+      overflow-x: clip;
+    }
+    h1, h2, h3, p, dl, dd, ul { margin: 0; padding: 0; }
+    ul { list-style: none; }
+    a { color: inherit; }
+    .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    a:focus-visible, button:focus-visible { outline: 3px solid var(--sol); outline-offset: 3px; }
+
+    .wrap { width: 100%; max-width: var(--largura); margin-inline: auto; padding-inline: var(--gutter); }
+
+    /* título de seção */
+    .titulo {
+      font-weight: 800;
+      font-size: clamp(48px, 7.5vw, 108px);
+      line-height: .92;
+      letter-spacing: -.04em;
+    }
+
+    /* anotação escrita à mão ao lado dos títulos */
+    .mao {
+      font-family: var(--f-mao);
+      font-weight: 600;
+      font-size: clamp(24px, 2.4vw, 34px);
+      line-height: 1;
+      display: inline-block;
+      transform: rotate(-3deg);
+    }
+
+    /* botões e links */
+    .btn {
+      display: inline-block;
+      padding: 14px 24px;
+      border: 2px solid currentColor;
+      border-radius: 6px;
+      background: transparent;
+      color: inherit;
+      font: 700 16px/1 var(--f-texto);
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .btn:hover { background: var(--v7); color: var(--v1); border-color: var(--v7); }
+    .btn--cheio { background: var(--v7); color: var(--v1); border-color: var(--v7); }
+    .btn--cheio:hover { background: var(--v5); border-color: var(--v5); }
+    .btn--sol { background: var(--sol); color: var(--v8); border-color: var(--sol); }
+    .btn--sol:hover { background: #f3c862; border-color: #f3c862; color: var(--v8); }
+    .escuro .btn:hover { background: var(--v1); color: var(--v8); border-color: var(--v1); }
+    .escuro .btn--sol:hover { background: #f3c862; border-color: #f3c862; }
+
+    /* =========================================================
+       3. HERO  (nome gigante ATRÁS dos picos)
+       ========================================================= */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(180deg, var(--v1) 0%, #cdebd3 100%);
+      padding-top: 120px;
+    }
+    .topo {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      z-index: 6;
+    }
+    .topo .wrap {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 6px 28px;
+      padding-block: 24px;
+      color: var(--v8);
+    }
+    .topo__logo { font-weight: 800; font-size: 20px; letter-spacing: -.02em; text-decoration: none; }
+    .topo__links { display: flex; flex-wrap: wrap; gap: 4px 24px; font-size: 16px; font-weight: 500; }
+    .topo__links a { text-decoration: none; }
+    .topo__links a:hover { text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 2px; }
+
+    .intro { position: relative; z-index: 3; max-width: 520px; display: flex; flex-direction: column; gap: 22px; padding-bottom: 30px; }
+    .intro p { font-size: 21px; line-height: 1.45; color: var(--v6); }
+    .intro__botoes { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    /* Ficha de personagem: papel colado com fita */
+    .ficha {
+      position: relative;
+      z-index: 4;
+      width: min(100%, 360px);
+      margin: 0 auto 36px;
+      padding: 30px 26px 26px;
+      background: #f5fbf4;
+      border: 1.5px solid var(--v8);
+      border-radius: 4px;
+      transform: rotate(-1.5deg);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .ficha::before {                           /* a fita */
+      content: '';
+      position: absolute;
+      top: -14px; left: 50%;
+      width: 110px; height: 28px;
+      margin-left: -55px;
+      background: rgba(233, 185, 73, .75);
+      transform: rotate(3deg);
+    }
+    .ficha__titulo { font-size: 14px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--v5); }
+    .ficha__nome { font-weight: 800; font-size: 38px; line-height: 1; letter-spacing: -.03em; }
+    .ficha__classe { font-size: 16px; color: var(--v5); margin-top: 4px; }
+    .ficha dl { display: grid; grid-template-columns: auto 1fr; gap: 8px 16px; padding-top: 14px; border-top: 1.5px dashed var(--v5); font-size: 17px; }
+    .ficha dt { font-weight: 600; color: var(--v5); }
+    .ficha dd { font-weight: 500; }
+    .ficha__attrs { padding-top: 14px; border-top: 1.5px dashed var(--v5); }
+    .ficha__attrs strong { display: block; font-size: 14px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--v5); margin-bottom: 4px; }
+    .ficha__attrs span { font-family: var(--f-mao); font-weight: 600; font-size: 26px; line-height: 1.15; }
+
+    /* Cena: cordilheira de trás (z1) -> NOME (z2) -> cordilheira da frente (z3) */
+    .cena { position: relative; height: clamp(480px, 44vw, 640px); margin-top: 8px; }
+    .cena svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+    .cena__tras   { z-index: 1; will-change: transform; }
+    .cena__nome   { position: absolute; z-index: 2; left: 0; right: 0; bottom: 22%; }
+    .cena__frente { z-index: 3; pointer-events: none; }
+
+    .nome__sub {
+      font-weight: 300;
+      font-size: clamp(24px, 3.4vw, 52px);
+      line-height: 1;
+      letter-spacing: -.02em;
+      color: var(--v6);
+      margin-bottom: .15em;
+    }
+    .nome {
+      font-weight: 800;
+      font-size: clamp(56px, 12.5vw, 205px);
+      line-height: .86;
+      letter-spacing: -.055em;
+      color: var(--v8);
+      white-space: nowrap;
+    }
+
+    .role {
+      position: absolute;
+      z-index: 5;
+      right: clamp(14px, 2.4vw, 36px);
+      bottom: 26px;
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      color: var(--v1);
+      font-size: 13px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase;
+      writing-mode: vertical-rl;
+      text-decoration: none;
+    }
+    .role::after { content: ''; width: 1px; height: 50px; background: var(--v1); }
+
+    @media (min-width: 960px) {
+      .hero { padding-top: 130px; }
+      .ficha { position: absolute; top: 120px; right: var(--gutter); margin: 0; width: 350px; }
+    }
+    @media (max-width: 959px) {
+      .role { display: none; }
+      .cena__nome { bottom: 28%; }
+    }
+    @media (max-width: 640px) {
+      .hero { padding-top: 172px; }               /* o menu quebra em 2-3 linhas no celular */
+      .topo__links { gap: 4px 16px; font-size: 15px; }
+      .ficha { padding: 24px 20px 20px; gap: 12px; margin-bottom: 24px; }
+      .ficha__nome { font-size: 32px; }
+    }
+
+    /* =========================================================
+       4. FAIXA
+       ========================================================= */
+    .faixa {
+      position: relative;
+      background: var(--v5);
+      color: var(--v1);
+      padding: 0 0 78px;
+    }
+    .faixa p { font-weight: 300; font-size: clamp(28px, 4.4vw, 60px); line-height: 1.1; letter-spacing: -.03em; }
+    .faixa b { font-weight: 800; }
+
+    /* =========================================================
+       5. TRILHA  (caminho pontilhado à mão + um "x" de mapa do tesouro)
+       Todo elemento com a classe .parada desenha o caminho até a próxima seção.
+       ========================================================= */
+    .parada { position: relative; }
+    .parada::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: -62px;
+      width: 60px; height: 124px;
+      margin-left: -30px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 124'%3E%3Cpath d='M30 0 C6 24 54 44 28 66 S10 104 30 124' fill='none' stroke='%23B8821A' stroke-width='3' stroke-linecap='round' stroke-dasharray='0.5 9'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+      z-index: 6;
+    }
+    .parada::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: -13px;
+      width: 26px; height: 26px;
+      margin-left: -13px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26'%3E%3Cpath d='M5 6 L21 20 M21 5 L6 21' fill='none' stroke='%23E9B949' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+      z-index: 7;
+    }
+    .escuro.parada::after, .escuro .parada::after, .parada--escura::after {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 124'%3E%3Cpath d='M30 0 C6 24 54 44 28 66 S10 104 30 124' fill='none' stroke='%23E9B949' stroke-width='3' stroke-linecap='round' stroke-dasharray='0.5 9'/%3E%3C/svg%3E");
+    }
+
+    /* =========================================================
+       6. SEÇÕES (cada uma é uma fatia do degradê contínuo)
+       ========================================================= */
+    .secao { position: relative; padding-block: clamp(96px, 11vw, 150px); }
+    .cab { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 6px 22px; }
+    .cab .mao { margin-bottom: .3em; }
+
+    /* 6.1 Sobre mim */
+    .sobre {
+      background: linear-gradient(180deg, var(--v1) 0%, #c9e8d0 100%);
+      padding-top: clamp(130px, 14vw, 190px);
+    }
+    .sobre .wrap { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 48px clamp(40px, 7vw, 110px); align-items: start; }
+    .sobre__texto { display: flex; flex-direction: column; gap: 32px; }
+    .sobre__texto p { font-size: clamp(22px, 2.4vw, 30px); line-height: 1.4; letter-spacing: -.01em; max-width: 30em; }
+    .fatos { padding-top: clamp(0px, 6vw, 90px); }
+    .fatos div { display: flex; flex-direction: column; padding: 16px 0; border-bottom: 1.5px solid rgba(11, 43, 38, .3); }
+    .fatos div:first-child { border-top: 1.5px solid rgba(11, 43, 38, .3); }
+    .fatos dt { font-size: 14px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--v5); }
+    .fatos dd { font-weight: 700; font-size: 24px; letter-spacing: -.02em; }
+    @media (max-width: 800px) { .sobre .wrap { grid-template-columns: minmax(0, 1fr); } .fatos { padding-top: 0; } }
+
+    .borda { position: absolute; top: -1px; left: 0; width: 100%; height: clamp(40px, 6vw, 90px); display: block; z-index: 2; }
+
+    /* 6.2 Profissão */
+    .profissao { background: linear-gradient(180deg, #c9e8d0 0%, #bfe0c8 100%); }
+    .profissao .wrap { display: flex; flex-direction: column; gap: 56px; }
+    .blocos { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start; }
+    .bloco { min-width: 0; padding: clamp(28px, 4vw, 48px); display: flex; flex-direction: column; gap: 14px; border-radius: 4px; }
+    .bloco small { font-size: 14px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+    .bloco h3 { font-weight: 800; font-size: clamp(76px, 12vw, 170px); line-height: .82; letter-spacing: -.06em; }
+    .bloco p { font-size: 20px; max-width: 18em; }
+    .bloco--fiap { flex: 3 1 440px; background: var(--v1); }
+    .bloco--fiap small { color: var(--v5); }
+    .bloco--one  { flex: 2 1 300px; background: var(--v7); color: var(--v1); margin-top: clamp(0px, 5vw, 70px); }
+    .bloco--one small { color: var(--sol); }
+
+    /* 6.3 Projetos e 6.4 Skills (continuam o degradê: #bfe0c8 -> #b3d8bd -> #a9d0b5) */
+    .projetos { background: linear-gradient(180deg, #bfe0c8 0%, #b3d8bd 100%); }
+    .skills   { background: linear-gradient(180deg, #b3d8bd 0%, #a9d0b5 100%); }
+    .projetos .wrap, .skills .wrap { display: flex; flex-direction: column; gap: 56px; }
+    .grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr)); gap: 24px; align-items: start; }
+    .cartao { padding: clamp(22px, 3vw, 32px); background: #f5fbf4; border: 1.5px solid var(--v8); border-radius: 4px; display: flex; flex-direction: column; gap: 12px; }
+    .cartao--escuro { background: var(--v7); color: var(--v1); border-color: var(--v7); }
+    .cartao small { font-size: 14px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--v5); }
+    .cartao--escuro small { color: var(--sol); }
+    .cartao h3 { font-weight: 800; font-size: clamp(30px, 3.2vw, 44px); line-height: 1; letter-spacing: -.04em; }
+    .cartao p { font-size: 18px; line-height: 1.45; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px 14px; }
+    .chips span { font-family: var(--f-mao); font-weight: 600; font-size: 24px; line-height: 1.1; border-bottom: 2px solid var(--sol-escuro); }
+    .cartao--escuro .chips span { border-color: rgba(233, 185, 73, .8); }
+    .chips span { display: inline-flex; align-items: center; gap: .3em; }
+    .chips svg { width: .85em; height: .85em; flex: none; }
+    .grupos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 32px 40px; }
+    .grupo { display: flex; flex-direction: column; gap: 14px; padding-top: 16px; border-top: 1.5px solid rgba(11, 43, 38, .3); }
+    .grupo h3 { font-size: 14px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--v5); }
+
+    /* 6.5 Gostos */
+    .gostos {
+      background: linear-gradient(180deg, #a9d0b5 0%, var(--v2) 100%);
+      padding-bottom: clamp(60px, 8vw, 100px);
+    }
+    .gostos .wrap { display: flex; flex-direction: column; gap: 56px; }
+    .quadro { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 22px 18px; padding: 8px; }
+    .papel {
+      padding: 22px 22px 20px;
+      border-radius: 3px;
+      display: flex; flex-direction: column; justify-content: space-between; gap: 18px;
+      box-shadow: 0 2px 0 rgba(5, 31, 32, .25);
+    }
+    .papel h3 { font-weight: 800; font-size: clamp(34px, 4vw, 58px); line-height: .9; letter-spacing: -.045em; overflow-wrap: normal; }
+    .papel span { font-family: var(--f-mao); font-weight: 600; font-size: 24px; line-height: 1; }
+    .papel--1 { flex: 1.35 1 260px; min-height: 230px; background: var(--v7); color: var(--v1); transform: rotate(-1.6deg); }
+    .papel--2 { flex: 1 1 200px; min-height: 180px; background: var(--sol); color: var(--v8); transform: rotate(1.8deg); margin-top: 26px; }
+    .papel--3 { flex: 1 1 200px; min-height: 250px; background: var(--v1); color: var(--v8); transform: rotate(1.2deg); }
+    .papel--4 { flex: 1.2 1 240px; min-height: 200px; background: var(--v4); color: var(--v1); transform: rotate(-2deg); margin-top: 34px; }
+    @media (max-width: 600px) {
+      .papel { flex: 1 1 calc(50% - 12px); min-height: 150px; padding: 16px; }
+      .papel h3 { font-size: clamp(22px, 7.4vw, 30px); }
+      .papel span { font-size: 22px; }
+      .papel--2, .papel--4 { margin-top: 14px; }
+    }
+
+    /* cordilheira que leva do verde claro ao escuro */
+    .cordilheira { display: block; width: 100%; height: clamp(120px, 16vw, 240px); margin-top: -1px; background: var(--v2); }
+
+    /* 6.4 Minha mente (mapa mental) */
+    .mente {
+      background: linear-gradient(180deg, var(--v7) 0%, #072620 100%);
+      color: var(--v1);
+      margin-top: -1px;
+      padding-top: clamp(24px, 4vw, 56px);
+    }
+    .mente .wrap { display: flex; flex-direction: column; gap: 40px; }
+    .mente__texto { max-width: 30em; color: #cfe6d4; font-size: 20px; }
+    .mente .mao { color: var(--sol); }
+
+    .mapa { position: relative; width: 100%; max-width: 1100px; margin-inline: auto; aspect-ratio: 1000 / 625; }
+    .mapa svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .mapa path { fill: none; stroke: rgba(218, 241, 222, .5); stroke-width: 1.6; stroke-linecap: round; stroke-dasharray: 1 7; vector-effect: non-scaling-stroke; }
+    .no { position: absolute; transform: translate(-50%, -50%); white-space: nowrap; }
+    .no--centro { font-weight: 800; letter-spacing: -.04em; font-size: clamp(26px, 4.6vw, 64px); line-height: 1; padding: .3em .5em .36em; background: var(--sol); color: var(--v8); border-radius: 6px; transform: translate(-50%, -50%) rotate(-2deg); }
+    .no--hub { font-weight: 700; font-size: clamp(13px, 1.5vw, 20px); letter-spacing: -.01em; padding: .5em .9em; background: var(--v1); color: var(--v8); border-radius: 4px; }
+    .no--folha { font-family: var(--f-mao); font-weight: 600; font-size: clamp(16px, 2.1vw, 30px); line-height: 1; padding: .1em .3em; border-bottom: 2px solid rgba(233, 185, 73, .8); }
+    /* no celular o mapa vira uma lista */
+    .lista { display: none; flex-wrap: wrap; gap: 10px 14px; }
+    .lista span { font-family: var(--f-mao); font-weight: 600; font-size: 26px; line-height: 1.1; padding: 2px 4px; border-bottom: 2px solid rgba(233, 185, 73, .8); }
+    .lista b { font-weight: 700; font-size: 15px; background: var(--v1); color: var(--v8); padding: 6px 10px; border-radius: 4px; }
+    @media (max-width: 900px) { .mapa { display: none; } .lista { display: flex; } }
+
+    /* 6.5 Contato */
+    .contato {
+      background: linear-gradient(180deg, #072620 0%, var(--v8) 100%);
+      color: var(--v1);
+      padding-block: clamp(110px, 12vw, 160px) 40px;
+    }
+    .contato__corpo { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 32px; }
+    .contato__texto { min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+    .contato__titulo { font-weight: 800; font-size: clamp(56px, 11vw, 160px); line-height: .86; letter-spacing: -.055em; }
+    .contato__email { font-size: 20px; color: #cfe6d4; overflow-wrap: anywhere; }
+    .contato__botoes { display: flex; flex-wrap: wrap; gap: 12px; }
+    .rodape { margin-top: 64px; padding-top: 20px; border-top: 1px solid rgba(218, 241, 222, .2); font-size: 15px; color: #9fc4a9; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 28px; }
+    .rodape a { text-decoration: none; }
+    .rodape a:hover { color: var(--v1); text-decoration: underline; text-underline-offset: 4px; }
+
+    /* =========================================================
+       7. ANIMAÇÃO DE ENTRADA (sem JS ou com "reduzir movimento": tudo visível)
+       ========================================================= */
+    .js .aparece { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s ease; }
+    .js .aparece.entrou { opacity: 1; transform: none; }
+    .js .papel.aparece { transform: translateY(20px) rotate(0); }
+    .js .papel--1.entrou { transform: rotate(-1.6deg); }
+    .js .papel--2.entrou { transform: rotate(1.8deg); }
+    .js .papel--3.entrou { transform: rotate(1.2deg); }
+    .js .papel--4.entrou { transform: rotate(-2deg); }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .js .aparece { opacity: 1; transition: none; }
+      .js .papel--1.aparece, .js .papel--2.aparece, .js .papel--3.aparece, .js .papel--4.aparece { transition: none; }
+    }
+
+    /* =========================================================
+       8. TRILHA DO TESOURO (desenhada pelo JS dentro de .zona, só nas seções claras)
+       A trilha fica por cima do fundo e POR BAIXO das caixas e dos textos (z-index 2)
+       ========================================================= */
+    .parada::before, .parada::after { display: none; }   /* trilhas antigas, trocadas pela nova */
+    .zona { position: relative; }
+    .trilha { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+    .zona .cab, .zona .sobre__texto, .zona .fatos, .zona .bloco, .zona .cartao, .zona .grupo, .zona .papel { position: relative; z-index: 2; }
+
+    /* nome do hero: a descida é feita pelo JS (--nome-y) conforme a rolagem */
+    .cena__nome .wrap { transform: translateY(var(--nome-y, 0px)); will-change: transform; }
+  </style>
+</head>
+
+<body>
+  <main>
+
+    <!-- ============ HERO ============ -->
+    <header class="hero" id="topo">
+
+      <nav class="topo" aria-label="Principal">
+        <div class="wrap">
+          <a class="topo__logo" href="#topo">Andre Bento</a>
+          <div class="topo__links">
+            <a href="#sobre">Sobre mim</a>
+            <a href="#profissao">Profissão</a>
+            <a href="#projetos">Projetos</a>
+            <a href="#skills">Skills</a>
+            <a href="#gostos">Gostos</a>
+            <a href="#mente">Minha mente</a>
+            <a href="#contato">Contato</a>
+          </div>
+        </div>
+      </nav>
+
+      <div class="wrap">
+        <div class="intro">
+          <p>Tenho 19 anos, estudo Engenharia de Software na FIAP e trabalho no financeiro da ONE, com comércio exterior.</p>
+          <div class="intro__botoes">
+            <a class="btn btn--cheio" href="#sobre">Me conhecer</a>
+            <a class="btn" href="#contato">Falar comigo</a>
+          </div>
+        </div>
+
+        <!-- Ficha de personagem -->
+        <aside class="ficha" aria-label="Ficha do personagem">
+          <div class="ficha__titulo">Ficha do personagem · nível 19</div>
+          <div>
+            <div class="ficha__nome">Andre Bento</div>
+            <div class="ficha__classe">Engenheiro de Software em formação</div>
+          </div>
+          <dl>
+            <dt>Academia</dt><dd>FIAP</dd>
+            <dt>Guilda</dt><dd>ONE, financeiro</dd>
+            <dt>Idioma</dt><dd>Inglês avançado</dd>
+          </dl>
+          <div class="ficha__attrs">
+            <strong>Atributos</strong>
+            <span>simpático, fácil de conversar, pensativo, prestativo</span>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Paisagem: cordilheira de trás (z1) -> NOME (z2) -> cordilheira da frente (z3) -->
+      <div class="cena">
+        <svg class="cena__tras" id="camadaTras" viewBox="0 0 1440 620" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+          <circle cx="310" cy="185" r="72" fill="#E9B949" opacity=".92"/>
+          <path d="M0 410 L70 372 L150 392 L260 322 L330 362 L440 296 L520 352 L610 330 L700 372 L800 282 L880 336 L990 312 L1060 358 L1170 326 L1250 300 L1340 352 L1440 332 L1440 620 L0 620Z" fill="#A9D0B5"/>
+          <path d="M0 452 L110 418 L200 446 L330 400 L430 440 L560 408 L690 452 L780 414 L920 458 L1040 410 L1130 442 L1290 412 L1440 446 L1440 620 L0 620Z" fill="#8EB69B"/>
+        </svg>
+
+        <div class="cena__nome">
+          <div class="wrap">
+            <p class="nome__sub">oi, eu sou o</p>
+            <h1 class="nome">Andre Bento</h1>
+          </div>
+        </div>
+
+        <svg class="cena__frente" viewBox="0 0 1440 620" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+          <!-- picos do meio (cobrem a parte de baixo das letras) -->
+          <path d="M0 526 L90 478 L190 506 L300 462 L410 498 L520 452 L610 470 L710 424 L790 462 L900 490 L1010 446 L1090 476 L1210 440 L1300 488 L1440 470 L1440 620 L0 620Z" fill="#507D5A"/>
+          <path d="M710 424 L668 470 L728 482Z" fill="#DAF1DE" opacity=".42"/>
+          <path d="M520 452 L488 484 L536 490Z" fill="#DAF1DE" opacity=".3"/>
+          <path d="M1210 440 L1172 478 L1226 488Z" fill="#DAF1DE" opacity=".34"/>
+          <path d="M300 462 L270 490 L314 496Z" fill="#DAF1DE" opacity=".28"/>
+          <!-- primeiro plano (termina na cor da faixa verde) com alguns pinheiros -->
+          <path d="M0 574 C190 546 360 588 630 564 C910 540 1110 592 1440 552 L1440 620 L0 620Z" fill="#235347"/>
+          <g fill="#163832">
+            <path d="M120 560 l12 -34 l12 34Z"/><path d="M152 566 l9 -26 l9 26Z"/>
+            <path d="M388 572 l10 -30 l10 30Z"/>
+            <path d="M846 560 l13 -38 l13 38Z"/><path d="M880 566 l9 -24 l9 24Z"/><path d="M906 562 l8 -22 l8 22Z"/>
+            <path d="M1180 566 l11 -32 l11 32Z"/>
+            <path d="M1356 556 l12 -36 l12 36Z"/>
+          </g>
+        </svg>
+
+        <a class="role" href="#sobre">role</a>
+      </div>
+    </header>
+
+    <!-- ============ FAIXA ============ -->
+    <div class="faixa parada escuro">
+      <div class="wrap">
+        <p><b>Software</b>, <b>comex</b>, <b>jogos</b>, <b>séries</b>, <b>RPG</b> e <b>Pokémon</b>.</p>
+      </div>
+    </div>
+
+    <!-- Zona da trilha: de Sobre mim até Gostos (seções claras) -->
+    <div class="zona" id="zona">
+
+    <!-- ============ SOBRE MIM ============ -->
+    <section class="secao sobre parada" id="sobre">
+      <svg class="borda" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 0 H1440 V52 L1330 84 L1190 46 L1060 90 L910 50 L770 88 L630 52 L470 90 L350 44 L190 84 L96 54 L0 80Z" fill="#507D5A"/>
+        <path d="M0 0 H1440 V38 L1330 66 L1190 32 L1060 72 L910 34 L770 70 L630 36 L470 72 L350 30 L190 66 L96 40 L0 62Z" fill="#235347"/>
+      </svg>
+      <div class="wrap">
+        <div class="sobre__texto aparece">
+          <div class="cab"><h2 class="titulo">Sobre mim</h2></div>
+          <p>Sou o Andre, estudante de Engenharia de Software na FIAP, em busca da primeira oportunidade de estágio em tecnologia. Me interesso por programação, dados e automação de processos.</p>
+          <p>Sou simpático e de fácil conversa. Penso bastante antes de falar e, quando alguém precisa de ajuda, costumo ser o primeiro a chegar.</p>
+        </div>
+        <dl class="fatos aparece">
+          <div><dt>Idade</dt><dd>19 anos</dd></div>
+          <div><dt>Estudo</dt><dd>Engenharia de Software, FIAP</dd></div>
+          <div><dt>Trabalho</dt><dd>Financeiro de comex, ONE</dd></div>
+          <div><dt>Idioma</dt><dd>Inglês avançado (CNA)</dd></div>
+          <div><dt>Curto</dt><dd>Jogos, séries, RPG e Pokémon</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ============ PROFISSÃO ============ -->
+    <section class="secao profissao parada" id="profissao">
+      <div class="wrap">
+        <div class="cab aparece">
+          <h2 class="titulo">Profissão</h2>
+          <span class="mao">dois caminhos, uma trilha</span>
+        </div>
+        <div class="blocos">
+          <article class="bloco bloco--fiap aparece">
+            <small>Estudo</small>
+            <h3>FIAP</h3>
+            <p>Engenharia de Software, com foco em programação, dados e automação de processos.</p>
+          </article>
+          <article class="bloco bloco--one aparece">
+            <small>Trabalho</small>
+            <h3>ONE</h3>
+            <p>Contas a receber na Ocean Network Express: baixas de D&amp;D, B/L, frete e SWIFT, tudo voltado ao comércio exterior.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROJETOS ============ -->
+    <section class="secao projetos parada" id="projetos">
+      <div class="wrap">
+        <div class="cab aparece">
+          <h2 class="titulo">Projetos</h2>
+          <span class="mao">o que já saiu do papel</span>
+        </div>
+        <div class="grade">
+          <article class="cartao cartao--escuro aparece">
+            <small>FIAP · WebDev · em trio</small>
+            <h3>A Escolha Certa</h3>
+            <p>MVP em React inspirado no TV Time: organizar o que já assisti, acompanhar séries e episódios, descobrir onde assistir e registrar opiniões.</p>
+            <div class="chips"><span>React</span><span>Vite</span><span>react-icons</span><span>localStorage</span></div>
+          </article>
+          <article class="cartao aparece">
+            <small>FIAP · ESP32</small>
+            <h3>RADAR</h3>
+            <p>Estação de monitoramento ambiental com ESP32, simulada no Wokwi. Mede temperatura, umidade, luminosidade e distância e envia os dados ao ThingSpeak.</p>
+            <div class="chips"><span>ESP32</span><span>DHT22</span><span>LDR</span><span>HC-SR04</span><span>ThingSpeak</span></div>
+          </article>
+          <article class="cartao aparece">
+            <small>FIAP · Challenge JOVI · em grupo</small>
+            <h3>Smart Sense Cam</h3>
+            <p>Conceito de app de câmera com IA para a JOVI, desenvolvido com o grupo TaskFlow. Fiz o protótipo e a apresentação animada.</p>
+            <div class="chips"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+          </article>
+          <article class="cartao aparece">
+            <small>Pessoal · em andamento</small>
+            <h3>Pokébox</h3>
+            <p>Fichário digital da minha coleção de cards Pokémon TCG: o que já tenho, o que falta e quanto vale.</p>
+            <div class="chips"><span>React</span><span>TypeScript</span><span>Tailwind</span><span>Supabase</span></div>
+          </article>
+          <article class="cartao aparece">
+            <small>Pessoal · em andamento</small>
+            <h3>FORJA</h3>
+            <p>App web de treino feito para o celular, com questionário de 10 perguntas, plano personalizado e três temas.</p>
+            <div class="chips"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SKILLS ============ -->
+    <section class="secao skills parada" id="skills">
+      <div class="wrap">
+        <div class="cab aparece">
+          <h2 class="titulo">Skills</h2>
+          <span class="mao">minha mochila de ferramentas</span>
+        </div>
+        <div class="grupos aparece">
+          <div class="grupo"><h3>Linguagens e front-end</h3><div class="chips"><span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09zm13.09 3.95l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08z"/></svg>Python</span><span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z"/></svg>JavaScript</span><span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M1.125 0C.502 0 0 .502 0 1.125v21.75C0 23.498.502 24 1.125 24h21.75c.623 0 1.125-.502 1.125-1.125V1.125C24 .502 23.498 0 22.875 0zm17.363 9.75c.612 0 1.154.037 1.627.111a6.38 6.38 0 0 1 1.306.34v2.458a3.95 3.95 0 0 0-.643-.361 5.093 5.093 0 0 0-.717-.26 5.453 5.453 0 0 0-1.426-.2c-.3 0-.573.028-.819.086a2.1 2.1 0 0 0-.623.242c-.17.104-.3.229-.393.374a.888.888 0 0 0-.14.49c0 .196.053.373.156.529.104.156.252.304.443.444s.423.276.696.41c.273.135.582.274.926.416.47.197.892.407 1.266.628.374.222.695.473.963.753.268.279.472.598.614.957.142.359.214.776.214 1.253 0 .657-.125 1.21-.373 1.656a3.033 3.033 0 0 1-1.012 1.085 4.38 4.38 0 0 1-1.487.596c-.566.12-1.163.18-1.79.18a9.916 9.916 0 0 1-1.84-.164 5.544 5.544 0 0 1-1.512-.493v-2.63a5.033 5.033 0 0 0 3.237 1.2c.333 0 .624-.03.872-.09.249-.06.456-.144.623-.25.166-.108.29-.234.373-.38a1.023 1.023 0 0 0-.074-1.089 2.12 2.12 0 0 0-.537-.5 5.597 5.597 0 0 0-.807-.444 27.72 27.72 0 0 0-1.007-.436c-.918-.383-1.602-.852-2.053-1.405-.45-.553-.676-1.222-.676-2.005 0-.614.123-1.141.369-1.582.246-.441.58-.804 1.004-1.089a4.494 4.494 0 0 1 1.47-.629 7.536 7.536 0 0 1 1.77-.201zm-15.113.188h9.563v2.166H9.506v9.646H6.789v-9.646H3.375z"/></svg>TypeScript</span><span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/></svg>HTML</span><span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M0 0v20.16A3.84 3.84 0 0 0 3.84 24h16.32A3.84 3.84 0 0 0 24 20.16V3.84A3.84 3.84 0 0 0 20.16 0Zm14.256 13.08c1.56 0 2.28 1.08 2.304 2.64h-1.608c.024-.288-.048-.6-.144-.84-.096-.192-.288-.264-.552-.264-.456 0-.696.264-.696.84-.024.576.288.888.768 1.08.72.288 1.608.744 1.92 1.296q.432.648.432 1.656c0 1.608-.912 2.592-2.496 2.592-1.656 0-2.4-1.032-2.424-2.688h1.68c0 .792.264 1.176.792 1.176.264 0 .456-.072.552-.24.192-.312.24-1.176-.048-1.512-.312-.408-.912-.6-1.32-.816q-.828-.396-1.224-.936c-.24-.36-.36-.888-.36-1.536 0-1.44.936-2.472 2.424-2.448m5.4 0c1.584 0 2.304 1.08 2.328 2.64h-1.608c0-.288-.048-.6-.168-.84-.096-.192-.264-.264-.528-.264-.48 0-.72.264-.72.84s.288.888.792 1.08c.696.288 1.608.744 1.92 1.296.264.432.408.984.408 1.656.024 1.608-.888 2.592-2.472 2.592-1.68 0-2.424-1.056-2.448-2.688h1.68c0 .744.264 1.176.792 1.176.264 0 .456-.072.552-.24.216-.312.264-1.176-.048-1.512-.288-.408-.888-.6-1.32-.816-.552-.264-.96-.576-1.2-.936s-.36-.888-.36-1.536c-.024-1.44.912-2.472 2.4-2.448m-11.031.018c.711-.006 1.419.198 1.839.63.432.432.672 1.128.648 1.992H9.336c.024-.456-.096-.792-.432-.96-.312-.144-.768-.048-.888.24-.12.264-.192.576-.168.864v3.504c0 .744.264 1.128.768 1.128a.65.65 0 0 0 .552-.264c.168-.24.192-.552.168-.84h1.776c.096 1.632-.984 2.712-2.568 2.688-1.536 0-2.496-.864-2.472-2.472v-4.032c0-.816.24-1.44.696-1.848.432-.408 1.146-.624 1.857-.63"/></svg>CSS</span><span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38-.318-.184-.688-.277-1.092-.278zm-.005 1.09v.006c.225 0 .406.044.558.127.666.382.955 1.835.73 3.704-.054.46-.142.945-.25 1.44-.96-.236-2.006-.417-3.107-.534-.66-.905-1.345-1.727-2.035-2.447 1.592-1.48 3.087-2.292 4.105-2.295zm-9.77.02c1.012 0 2.514.808 4.11 2.28-.686.72-1.37 1.537-2.02 2.442-1.107.117-2.154.298-3.113.538-.112-.49-.195-.964-.254-1.42-.23-1.868.054-3.32.714-3.707.19-.09.4-.127.563-.132zm4.882 3.05c.455.468.91.992 1.36 1.564-.44-.02-.89-.034-1.345-.034-.46 0-.915.01-1.36.034.44-.572.895-1.096 1.345-1.565zM12 8.1c.74 0 1.477.034 2.202.093.406.582.802 1.203 1.183 1.86.372.64.71 1.29 1.018 1.946-.308.655-.646 1.31-1.013 1.95-.38.66-.773 1.288-1.18 1.87-.728.063-1.466.098-2.21.098-.74 0-1.477-.035-2.202-.093-.406-.582-.802-1.204-1.183-1.86-.372-.64-.71-1.29-1.018-1.946.303-.657.646-1.313 1.013-1.954.38-.66.773-1.286 1.18-1.868.728-.064 1.466-.098 2.21-.098zm-3.635.254c-.24.377-.48.763-.704 1.16-.225.39-.435.782-.635 1.174-.265-.656-.49-1.31-.676-1.947.64-.15 1.315-.283 2.015-.386zm7.26 0c.695.103 1.365.23 2.006.387-.18.632-.405 1.282-.66 1.933-.2-.39-.41-.783-.64-1.174-.225-.392-.465-.774-.705-1.146zm3.063.675c.484.15.944.317 1.375.498 1.732.74 2.852 1.708 2.852 2.476-.005.768-1.125 1.74-2.857 2.475-.42.18-.88.342-1.355.493-.28-.958-.646-1.956-1.1-2.98.45-1.017.81-2.01 1.085-2.964zm-13.395.004c.278.96.645 1.957 1.1 2.98-.45 1.017-.812 2.01-1.086 2.964-.484-.15-.944-.318-1.37-.5-1.732-.737-2.852-1.706-2.852-2.474 0-.768 1.12-1.742 2.852-2.476.42-.18.88-.342 1.356-.494zm11.678 4.28c.265.657.49 1.312.676 1.948-.64.157-1.316.29-2.016.39.24-.375.48-.762.705-1.158.225-.39.435-.788.636-1.18zm-9.945.02c.2.392.41.783.64 1.175.23.39.465.772.705 1.143-.695-.102-1.365-.23-2.006-.386.18-.63.406-1.282.66-1.933zM17.92 16.32c.112.493.2.968.254 1.423.23 1.868-.054 3.32-.714 3.708-.147.09-.338.128-.563.128-1.012 0-2.514-.807-4.11-2.28.686-.72 1.37-1.536 2.02-2.44 1.107-.118 2.154-.3 3.113-.54zm-11.83.01c.96.234 2.006.415 3.107.532.66.905 1.345 1.727 2.035 2.446-1.595 1.483-3.092 2.295-4.11 2.295-.22-.005-.406-.05-.553-.132-.666-.38-.955-1.834-.73-3.703.054-.46.142-.944.25-1.438zm4.56.64c.44.02.89.034 1.345.034.46 0 .915-.01 1.36-.034-.44.572-.895 1.095-1.345 1.565-.455-.47-.91-.993-1.36-1.565z"/></svg>React</span><span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 c1.177,1.194,2.538,2.576,5.512,2.576c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C10.337,13.382,8.976,12,6.001,12z"/></svg>Tailwind</span><span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.056 23.238a.57.57 0 0 1-1.02-.355v-5.202c0-.63-.512-1.143-1.144-1.143H5.148a.57.57 0 0 1-.464-.903l3.777-5.29c.54-.753 0-1.804-.93-1.804H.57a.574.574 0 0 1-.543-.746.6.6 0 0 1 .08-.157L5.008.78a.57.57 0 0 1 .467-.24h14.589a.57.57 0 0 1 .466.903l-3.778 5.29c-.54.755 0 1.806.93 1.806h5.745c.238 0 .424.138.513.322a.56.56 0 0 1-.063.603z"/></svg>Vite</span></div></div>
+          <div class="grupo"><h3>Ferramentas</h3><div class="chips"><span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>GitHub</span><span>VS Code</span><span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.355 18.538a68.967 68.959 0 0 0 1.858-2.954.81.81 0 0 0-.062-.9c-.516-.685-1.504-2.075-2.042-3.362-.553-1.321-.636-3.375-.64-4.377a1.707 1.707 0 0 0-.358-1.05l-3.198-4.064a3.744 3.744 0 0 1-.076.543c-.106.503-.307 1.004-.536 1.5-.134.29-.29.6-.446.914l-.31.626c-.516 1.068-.997 2.227-1.132 3.59-.124 1.26.046 2.73.815 4.481.128.011.257.025.386.044a6.363 6.363 0 0 1 3.326 1.505c.916.79 1.744 1.922 2.415 3.5zM8.199 22.569c.073.012.146.02.22.02.78.024 2.095.092 3.16.29.87.16 2.593.64 4.01 1.055 1.083.316 2.198-.548 2.355-1.664.114-.814.33-1.735.725-2.58l-.01.005c-.67-1.87-1.522-3.078-2.416-3.849a5.295 5.295 0 0 0-2.778-1.257c-1.54-.216-2.952.19-3.84.45.532 2.218.368 4.829-1.425 7.531zM5.533 9.938c-.023.1-.056.197-.098.29L2.82 16.059a1.602 1.602 0 0 0 .313 1.772l4.116 4.24c2.103-3.101 1.796-6.02.836-8.3-.728-1.73-1.832-3.081-2.55-3.831zM9.32 14.01c.615-.183 1.606-.465 2.745-.534-.683-1.725-.848-3.233-.716-4.577.154-1.552.7-2.847 1.235-3.95.113-.235.223-.454.328-.664.149-.297.288-.577.419-.86.217-.47.379-.885.46-1.27.08-.38.08-.72-.014-1.043-.095-.325-.297-.675-.68-1.06a1.6 1.6 0 0 0-1.475.36l-4.95 4.452a1.602 1.602 0 0 0-.513.952l-.427 2.83c.672.59 2.328 2.316 3.335 4.711.09.21.175.43.253.653z"/></svg>Obsidian</span><span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.4737 5.6842c-1.1772 0-2.1663.8051-2.4468 1.8947h-2.8955c-1.235 0-2.289.893-2.492 2.111l-.1038.623a1.263 1.263 0 0 1-1.246 1.0555H11.289c-.2805-1.0896-1.2696-1.8947-2.4468-1.8947s-2.1663.8051-2.4467 1.8947H4.973c-.2805-1.0896-1.2696-1.8947-2.4468-1.8947C1.1311 9.4737 0 10.6047 0 12s1.131 2.5263 2.5263 2.5263c1.1772 0 2.1663-.8051 2.4468-1.8947h1.4223c.2804 1.0896 1.2696 1.8947 2.4467 1.8947 1.1772 0 2.1663-.8051 2.4468-1.8947h1.0008a1.263 1.263 0 0 1 1.2459 1.0555l.1038.623c.203 1.218 1.257 2.111 2.492 2.111h.3692c.2804 1.0895 1.2696 1.8947 2.4468 1.8947 1.3952 0 2.5263-1.131 2.5263-2.5263s-1.131-2.5263-2.5263-2.5263c-1.1772 0-2.1664.805-2.4468 1.8947h-.3692a1.263 1.263 0 0 1-1.246-1.0555l-.1037-.623A2.52 2.52 0 0 0 13.9607 12a2.52 2.52 0 0 0 .821-1.4794l.1038-.623a1.263 1.263 0 0 1 1.2459-1.0555h2.8955c.2805 1.0896 1.2696 1.8947 2.4468 1.8947 1.3952 0 2.5263-1.131 2.5263-2.5263s-1.131-2.5263-2.5263-2.5263m0 1.2632a1.263 1.263 0 0 1 1.2631 1.2631 1.263 1.263 0 0 1-1.2631 1.2632 1.263 1.263 0 0 1-1.2632-1.2632 1.263 1.263 0 0 1 1.2632-1.2631M2.5263 10.7368A1.263 1.263 0 0 1 3.7895 12a1.263 1.263 0 0 1-1.2632 1.2632A1.263 1.263 0 0 1 1.2632 12a1.263 1.263 0 0 1 1.2631-1.2632m6.3158 0A1.263 1.263 0 0 1 10.1053 12a1.263 1.263 0 0 1-1.2632 1.2632A1.263 1.263 0 0 1 7.579 12a1.263 1.263 0 0 1 1.2632-1.2632m10.1053 3.7895a1.263 1.263 0 0 1 1.2631 1.2632 1.263 1.263 0 0 1-1.2631 1.2631 1.263 1.263 0 0 1-1.2632-1.2631 1.263 1.263 0 0 1 1.2632-1.2632"/></svg>n8n</span><span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.9 1.036c-.015-.986-1.26-1.41-1.874-.637L.764 12.05C-.33 13.427.65 15.455 2.409 15.455h9.579l.113 7.51c.014.985 1.259 1.408 1.873.636l9.262-11.653c1.093-1.375.113-3.403-1.645-3.403h-9.642z"/></svg>Supabase</span></div></div>
+          <div class="grupo"><h3>Dados e Office</h3><div class="chips"><span>Power BI (estudando)</span><span>Excel</span><span>Word</span><span>PowerPoint</span><span>automação com Python</span><span>automação de processos</span></div></div>
+          <div class="grupo"><h3>IoT</h3><div class="chips"><span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.926 19.324a7.6 7.6 0 00-2.983-6.754 7.44 7.44 0 00-3.828-1.554.697.697 0 01-.606-.731.674.674 0 01.743-.617 8.97 8.97 0 018 9.805 7.828 7.828 0 01-.298 1.542l1.989.56a11.039 11.039 0 001.714-.651 12.159 12.159 0 00.217-2.343A12.57 12.57 0 007.212 6.171a5.53 5.53 0 00-2 0 4.354 4.354 0 00-2.16 1.337 4.274 4.274 0 001.909 6.856 9.896 9.896 0 001.074.195 4.011 4.011 0 013.337 3.954 3.965 3.965 0 01-.64 2.16l1.371.88a10.182 10.182 0 002.057.342 7.52 7.52 0 00.754-2.628m.16 4.73A13.073 13.073 0 01.001 10.983 12.982 12.982 0 013.83 1.737l.743.697a12.067 12.067 0 000 17.141 12.067 12.067 0 0017.141 0l.697.697a12.97 12.97 0 01-9.336 3.726M24 10.993A10.993 10.993 0 0012.949 0c-.389 0-.766 0-1.143.057l-.252.732a18.912 18.912 0 0111.588 11.576l.731-.263c0-.366.069-.732.069-1.143m-1.269 5.165A17.53 17.53 0 007.818 1.27a11.119 11.119 0 00-2.457 1.77v1.635A13.919 13.919 0 0119.268 18.57h1.634a11.713 11.713 0 001.771-2.446M7.92 17.884a1.691 1.691 0 11-1.69-1.691 1.691 1.691 0 011.69 1.691"/></svg>ESP32</span><span>Wokwi</span><span>sensores (DHT22, LDR, HC-SR04)</span></div></div>
+          <div class="grupo"><h3>Engenharia de software</h3><div class="chips"><span>lógica de programação</span><span>UML (Astah)</span><span>backlog e escopo</span><span>heurísticas de Nielsen</span><span>boas práticas</span><span>inteligência artificial</span><span>prompts para IA</span></div></div>
+          <div class="grupo"><h3>Comex e financeiro</h3><div class="chips"><span>baixas de D&amp;D</span><span>B/L</span><span>frete</span><span>SWIFT</span><span>contas a receber</span></div></div>
+          <div class="grupo"><h3>Idiomas</h3><div class="chips"><span>inglês avançado (CNA)</span></div></div>
+          <div class="grupo"><h3>Soft skills</h3><div class="chips"><span>proatividade</span><span>colaboração</span><span>responsabilidade</span><span>comunicação</span><span>prestatividade</span><span>trabalho em equipe</span><span>aprendizado contínuo</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ GOSTOS ============ -->
+    <section class="secao gostos parada" id="gostos">
+      <div class="wrap">
+        <div class="cab aparece">
+          <h2 class="titulo">Gostos</h2>
+          <span class="mao">o que me faz perder a hora</span>
+        </div>
+        <div class="quadro">
+          <article class="papel papel--1 aparece"><h3>Jogos</h3><span>Minecraft, Valorant e a franquia Souls</span></article>
+          <article class="papel papel--2 aparece"><h3>Séries</h3><span>Breaking Bad, The Walking Dead, The Mentalist e Shadowhunters</span></article>
+          <article class="papel papel--3 aparece"><h3>RPG</h3><span>Daggerheart, D&amp;D e Ordem Paranormal</span></article>
+          <article class="papel papel--4 aparece"><h3>Pokémon</h3><span>minha elite: Greninja, Victreebel, Jolteon, Tyranitar e Gardevoir</span></article>
+        </div>
+      </div>
+    </section>
+
+    </div><!-- /zona -->
+
+    <!-- Cordilheira: leva do verde claro ao verde escuro -->
+    <svg class="cordilheira" viewBox="0 0 1440 240" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 152 L96 106 L240 142 L350 74 L520 136 L640 58 L790 128 L930 90 L1090 142 L1230 82 L1440 126 L1440 240 L0 240Z" fill="#6BA06F"/>
+      <path d="M0 192 L170 150 L290 186 L450 126 L610 184 L800 132 L960 186 L1140 140 L1290 182 L1440 156 L1440 240 L0 240Z" fill="#235347"/>
+      <path d="M0 228 C250 198 450 238 760 214 C1050 190 1210 234 1440 210 L1440 240 L0 240Z" fill="#0B2B26"/>
+    </svg>
+
+    <!-- ============ MINHA MENTE ============ -->
+    <section class="secao mente parada parada--escura" id="mente">
+      <div class="wrap">
+        <div class="aparece" style="display:flex;flex-direction:column;gap:20px">
+          <div class="cab">
+            <h2 class="titulo">Minha mente</h2>
+            <span class="mao">eu penso bastante</span>
+          </div>
+          <p class="mente__texto">Um pouco do que passa pela minha cabeça. Tudo está ligado a tudo.</p>
+        </div>
+
+        <!-- O mapa é montado pelo JavaScript (veja a lista MENTE lá embaixo) -->
+        <div class="mapa aparece" id="mapa" role="img" aria-label="Mapa mental com Andre no centro, ligado a: como eu sou, o que me move e ideias em andamento"></div>
+        <div class="lista" id="lista"></div>
+      </div>
+    </section>
+
+    <!-- ============ CONTATO ============ -->
+    <section class="contato escuro" id="contato">
+      <div class="wrap">
+        <div class="contato__corpo aparece">
+          <div class="contato__texto">
+            <h2 class="contato__titulo">Vamos conversar?</h2>
+            <span class="contato__email" id="email">andregonzales.bento@gmail.com</span>
+          </div>
+          <div class="contato__botoes">
+            <a class="btn" href="mailto:andregonzales.bento@gmail.com?subject=Contato%20pelo%20portf%C3%B3lio">Enviar e-mail</a>
+            <a class="btn" href="https://github.com/andregonzalesbento-lgtm" target="_blank" rel="noopener">GitHub</a>
+            <a class="btn btn--sol" href="https://www.linkedin.com/in/andr%C3%A9-gonzales-bento-035bb3349" target="_blank" rel="noopener">LinkedIn</a>
+          </div>
+        </div>
+        <footer class="rodape">
+          <p>© 2026 André Gonzales Bento. Todos os direitos reservados.</p>
+          <p>Engenharia de Software · FIAP</p>
+          <a href="#topo">Voltar ao topo ↑</a>
+        </footer>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    /* =========================================================
+       JAVASCRIPT  (tudo opcional: sem ele a página continua legível)
+       ========================================================= */
+    (function () {
+      var reduzir = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* ---------- 1. Entrada suave ao rolar ---------- */
+      var itens = document.querySelectorAll('.aparece');
+      if ('IntersectionObserver' in window && !reduzir) {
+        var obs = new IntersectionObserver(function (entradas) {
+          entradas.forEach(function (e) {
+            /* também revela o que ficou ACIMA da tela (ex.: abrir direto em #contato) */
+            if (e.isIntersecting || e.boundingClientRect.bottom < 0) { e.target.classList.add('entrou'); obs.unobserve(e.target); }
+          });
+        }, { threshold: 0.01, rootMargin: '0px 0px -5% 0px' });
+        itens.forEach(function (el) { obs.observe(el); });
+      } else {
+        itens.forEach(function (el) { el.classList.add('entrou'); });
+      }
+
+      /* ---------- 2. Nome desce atrás da montanha + paralaxe ----------
+         No topo o nome fica em cima dos picos; ao rolar ele desce devagar e termina ~50% coberto.
+         As alturas são calculadas pelo desenho real das montanhas (funciona em qualquer largura). */
+      var COBERTO_FINAL = 0.5;   // fração das letras escondida no fim da descida (mude aqui)
+      var FOLGA_INICIAL = 8;     // px de folga acima do pico mais alto, no topo da página
+      var RIDGE = [[0,526],[90,478],[190,506],[300,462],[410,498],[520,452],[610,470],[710,424],[790,462],[900,490],[1010,446],[1090,476],[1210,440],[1300,488],[1440,470]];
+      function altura(vx) {                         // altura (no desenho de 620px) da cordilheira da frente em vx
+        if (vx <= 0) return 620 - RIDGE[0][1];
+        for (var i = 1; i < RIDGE.length; i++) {
+          if (vx <= RIDGE[i][0]) { var a = RIDGE[i - 1], b = RIDGE[i], f = (vx - a[0]) / (b[0] - a[0]); return 620 - (a[1] + (b[1] - a[1]) * f); }
+        }
+        return 620 - RIDGE[RIDGE.length - 1][1];
+      }
+      var hero = document.getElementById('topo'), cena = document.querySelector('.cena');
+      var tras = document.getElementById('camadaTras');
+      var nomeBox = document.querySelector('.cena__nome'), nomeWrap = nomeBox.querySelector('.wrap'), nomeH1 = nomeBox.querySelector('.nome');
+      var ty0 = 0, ty1 = 0;
+      function medir() {
+        var W = cena.clientWidth, h = cena.clientHeight, s = Math.max(W / 1440, h / 620);
+        var F = parseFloat(getComputedStyle(nomeH1).fontSize);
+        var r = document.createRange(); r.selectNodeContents(nomeH1);
+        var rr = r.getBoundingClientRect(), cr = cena.getBoundingClientRect();
+        var topo = 0, soma = 0, qtd = 0;
+        for (var px = rr.left - cr.left; px <= rr.right - cr.left; px += 8) {
+          var alt = altura((px - W / 2) / s + 720) * s;
+          topo = Math.max(topo, alt); soma += alt; qtd++;
+        }
+        var base = parseFloat(getComputedStyle(nomeBox).bottom) + 0.14 * F;   // linha de base do nome, medida do pé da cena
+        ty0 = base - (topo + FOLGA_INICIAL);                                   // começa em cima do pico mais alto
+        ty1 = base - (soma / qtd - COBERTO_FINAL * 0.7 * F);                   // termina ~50% coberto
+        mover();
+      }
+      function mover() {
+        var y = window.scrollY, p = reduzir ? 0 : Math.min(1, y / (hero.offsetHeight * 0.55));
+        nomeWrap.style.setProperty('--nome-y', (ty0 + (ty1 - ty0) * p) + 'px');
+        if (!reduzir) tras.style.transform = 'translateY(' + (Math.min(y, hero.offsetHeight) * 0.12) + 'px)';
+      }
+      var pendente = false;
+      window.addEventListener('scroll', function () {
+        if (pendente) return;
+        pendente = true;
+        requestAnimationFrame(function () { mover(); pendente = false; });
+      }, { passive: true });
+      window.addEventListener('resize', medir);
+      if (document.fonts && document.fonts.ready) { document.fonts.ready.then(medir); }
+      medir();
+
+      /* ---------- 3. Mapa mental ----------
+         Coordenadas num espaço de 1000 x 625. Edite os textos à vontade.
+         Pokébox e FORJA são os projetos pessoais em andamento. */
+      var MENTE = {
+        centro: { rotulo: 'Andre', x: 500, y: 300 },
+        ramos: [
+          { rotulo: 'Como eu sou', x: 200, y: 160, folhas: [
+            { rotulo: 'simpático',          x: 90,  y: 50  },
+            { rotulo: 'pensativo',          x: 300, y: 55  },
+            { rotulo: 'prestativo',         x: 80,  y: 275 },
+            { rotulo: 'fácil de conversar', x: 255, y: 290 } ] },
+          { rotulo: 'O que me move', x: 800, y: 160, folhas: [
+            { rotulo: 'Minecraft', x: 700, y: 55  },
+            { rotulo: 'Breaking Bad', x: 905, y: 50  },
+            { rotulo: 'Daggerheart', x: 710, y: 285 },
+            { rotulo: 'Greninja', x: 900, y: 280 } ] },
+          { rotulo: 'Ideias em andamento', x: 500, y: 470, folhas: [
+            { rotulo: 'projetos em React',      x: 215, y: 500 },
+            { rotulo: 'RADAR (ESP32)', x: 790, y: 500 },
+            { rotulo: 'Pokébox',               x: 375, y: 585 },
+            { rotulo: 'FORJA',                 x: 635, y: 585 } ] }
+        ]
+      };
+
+      var mapa = document.getElementById('mapa');
+      var lista = document.getElementById('lista');
+      var NS = 'http://www.w3.org/2000/svg';
+      var svg = document.createElementNS(NS, 'svg');
+      svg.setAttribute('viewBox', '0 0 1000 625');
+      svg.setAttribute('preserveAspectRatio', 'none');
+      svg.setAttribute('aria-hidden', 'true');
+      mapa.appendChild(svg);
+
+      var contador = 0;
+      function ligar(a, b) {                       // linha pontilhada meio torta, como desenhada à mão
+        contador++;
+        var jitter = ((contador * 37) % 24) - 12;
+        var mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+        var cx = mx + (b.y - a.y) * 0.14 + jitter, cy = my - (b.x - a.x) * 0.14 - jitter;
+        var p = document.createElementNS(NS, 'path');
+        p.setAttribute('d', 'M' + a.x + ' ' + a.y + ' Q' + cx + ' ' + cy + ' ' + b.x + ' ' + b.y);
+        svg.appendChild(p);
+      }
+      function no(n, classe) {
+        var el = document.createElement('span');
+        el.className = 'no ' + classe;
+        el.textContent = n.rotulo;
+        el.style.left = (n.x / 10) + '%';
+        el.style.top = (n.y / 6.25) + '%';
+        mapa.appendChild(el);
+      }
+      function chip(texto, tag) {
+        var s = document.createElement(tag);
+        s.textContent = texto;
+        lista.appendChild(s);
+      }
+
+      MENTE.ramos.forEach(function (r) {
+        ligar(MENTE.centro, r);
+        r.folhas.forEach(function (f) { ligar(r, f); });
+      });
+      MENTE.ramos.forEach(function (r) {
+        no(r, 'no--hub'); chip(r.rotulo, 'b');
+        r.folhas.forEach(function (f) { no(f, 'no--folha'); chip(f.rotulo, 'span'); });
+      });
+      no(MENTE.centro, 'no--centro');
+
+
+      /* ---------- 4. Trilha do tesouro ----------
+         Pá no começo, caminho tracejado sinuoso com pegadas, X no fim. */
+      var zona = document.getElementById('zona');
+      function trilha() {
+        var velha = zona.querySelector('.trilha'); if (velha) velha.remove();
+        var W = zona.clientWidth, H = zona.clientHeight, OURO = '#B8821A';
+        var t = document.createElementNS(NS, 'svg');
+        t.setAttribute('class', 'trilha'); t.setAttribute('viewBox', '0 0 ' + W + ' ' + H); t.setAttribute('aria-hidden', 'true');
+        var y0 = 150, y1 = H - 44, n = Math.max(3, Math.round((y1 - y0) / 460));
+        var d = 'M' + (W / 2) + ' ' + y0, ax = W / 2, ay = y0;
+        for (var k = 1; k <= n; k++) {               // curvas em "S": o caminho vai de um lado ao outro da página
+          var bx = (k === n) ? W / 2 : (k % 2 ? W * 0.17 : W * 0.83), by = y0 + (y1 - y0) * k / n, my = (ay + by) / 2;
+          d += ' C' + ax + ' ' + my + ' ' + bx + ' ' + my + ' ' + bx + ' ' + by; ax = bx; ay = by;
+        }
+        var linha = document.createElementNS(NS, 'path');
+        linha.setAttribute('d', d); linha.setAttribute('fill', 'none'); linha.setAttribute('stroke', OURO);
+        linha.setAttribute('stroke-width', '3'); linha.setAttribute('stroke-linecap', 'round'); linha.setAttribute('stroke-dasharray', '0.5 9');
+        t.appendChild(linha);
+        var L = linha.getTotalLength(), lado = 1;
+        for (var len = 75; len < L - 70; len += 72) {  // pegadas, uma de cada lado do caminho
+          var a = linha.getPointAtLength(len), b = linha.getPointAtLength(len + 3);
+          var ang = Math.atan2(b.y - a.y, b.x - a.x), dx = -Math.sin(ang) * 8 * lado, dy = Math.cos(ang) * 8 * lado;
+          var g = document.createElementNS(NS, 'g'); lado = -lado;
+          g.setAttribute('transform', 'translate(' + (a.x + dx) + ' ' + (a.y + dy) + ') rotate(' + (ang * 180 / Math.PI) + ')');
+          g.setAttribute('fill', OURO); g.setAttribute('opacity', '.85');
+          g.innerHTML = '<ellipse cx="2" rx="5" ry="3.2"/><ellipse cx="-6" rx="2.6" ry="2.4"/><circle cx="8.5" cy="-2.2" r="1.2"/><circle cx="9.3" r="1.2"/><circle cx="8.5" cy="2.2" r="1.2"/>';
+          t.appendChild(g);
+        }
+        var pa = document.createElementNS(NS, 'g');   // pá cravada no começo
+        pa.setAttribute('transform', 'translate(' + (W / 2 - 18) + ' ' + (y0 - 46) + ') rotate(-14 18 46)');
+        pa.innerHTML = '<g fill="none" stroke="' + OURO + '" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2H26M18 2V26"/><path d="M9 26H27L24 44Q18 48 12 44Z" fill="#E9B949" stroke-width="2.5"/></g>';
+        t.appendChild(pa);
+        var x = document.createElementNS(NS, 'path');  // X no fim
+        x.setAttribute('d', 'M' + (W / 2 - 14) + ' ' + (y1 - 14) + 'L' + (W / 2 + 14) + ' ' + (y1 + 14) + 'M' + (W / 2 + 14) + ' ' + (y1 - 14) + 'L' + (W / 2 - 14) + ' ' + (y1 + 14));
+        x.setAttribute('stroke', '#D69E1E'); x.setAttribute('stroke-width', '6'); x.setAttribute('stroke-linecap', 'round'); x.setAttribute('fill', 'none');
+        t.appendChild(x);
+        zona.insertBefore(t, zona.firstChild);
+      }
+      if ('ResizeObserver' in window) { new ResizeObserver(trilha).observe(zona); }
+      else { trilha(); window.addEventListener('resize', trilha); }
+      if (document.fonts && document.fonts.ready) { document.fonts.ready.then(trilha); }
+    })();
+  </script>
+</body>
+</html>
