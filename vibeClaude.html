@@ -177,7 +177,7 @@
     .ficha__attrs span { font-family: var(--f-mao); font-weight: 600; font-size: 26px; line-height: 1.15; }
 
     /* Cena: cordilheira de trás (z1) -> NOME (z2) -> cordilheira da frente (z3) */
-    .cena { position: relative; height: clamp(480px, 44vw, 640px); margin-top: 8px; }
+    .cena { position: relative; height: clamp(480px, 44vw, 640px); margin-top: clamp(32px, 4vw, 56px); }
     .cena svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
     .cena__tras   { z-index: 1; will-change: transform; }
     .cena__nome   { position: absolute; z-index: 2; left: 0; right: 0; bottom: 22%; }
@@ -373,11 +373,13 @@
     .no--centro { font-weight: 800; letter-spacing: -.04em; font-size: clamp(26px, 4.6vw, 64px); line-height: 1; padding: .3em .5em .36em; background: var(--sol); color: var(--v8); border-radius: 6px; transform: translate(-50%, -50%) rotate(-2deg); }
     .no--hub { font-weight: 700; font-size: clamp(13px, 1.5vw, 20px); letter-spacing: -.01em; padding: .5em .9em; background: var(--v1); color: var(--v8); border-radius: 4px; }
     .no--folha { font-family: var(--f-mao); font-weight: 600; font-size: clamp(16px, 2.1vw, 30px); line-height: 1; padding: .1em .3em; border-bottom: 2px solid rgba(233, 185, 73, .8); }
-    /* no celular o mapa vira uma lista */
-    .lista { display: none; flex-wrap: wrap; gap: 10px 14px; }
-    .lista span { font-family: var(--f-mao); font-weight: 600; font-size: 26px; line-height: 1.1; padding: 2px 4px; border-bottom: 2px solid rgba(233, 185, 73, .8); }
-    .lista b { font-weight: 700; font-size: 15px; background: var(--v1); color: var(--v8); padding: 6px 10px; border-radius: 4px; }
-    @media (max-width: 900px) { .mapa { display: none; } .lista { display: flex; } }
+    /* em telas menores, os ramos viram cartões para preservar as relações */
+    .lista { display: none; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 16px; }
+    .lista__ramo { min-width: 0; padding: 20px; border: 1px solid rgba(218, 241, 222, .28); border-radius: 6px; background: rgba(218, 241, 222, .06); }
+    .lista__ramo h3 { display: inline-block; margin-bottom: 14px; padding: 7px 11px; border-radius: 4px; background: var(--v1); color: var(--v8); font-size: 17px; line-height: 1.25; }
+    .lista__ramo ul { display: flex; flex-wrap: wrap; gap: 10px 14px; }
+    .lista__ramo li { font-family: var(--f-mao); font-weight: 600; font-size: clamp(21px, 5vw, 26px); line-height: 1.1; padding: 2px 4px; border-bottom: 2px solid rgba(233, 185, 73, .8); }
+    @media (max-width: 900px) { .mapa { display: none; } .lista { display: grid; } }
 
     /* 6.5 Contato */
     .contato {
@@ -397,9 +399,9 @@
     /* =========================================================
        7. ANIMAÇÃO DE ENTRADA (sem JS ou com "reduzir movimento": tudo visível)
        ========================================================= */
-    .js .aparece { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s ease; }
+    .js .aparece { opacity: 0; transform: translateY(var(--reveal-y, 20px)); transition: opacity .7s ease, transform .7s ease; }
     .js .aparece.entrou { opacity: 1; transform: none; }
-    .js .papel.aparece { transform: translateY(20px) rotate(0); }
+    .js .papel.aparece { transform: translateY(var(--reveal-y, 20px)) rotate(0); }
     .js .papel--1.entrou { transform: rotate(-1.6deg); }
     .js .papel--2.entrou { transform: rotate(1.8deg); }
     .js .papel--3.entrou { transform: rotate(1.2deg); }
@@ -638,7 +640,7 @@
           <article class="papel papel--1 aparece"><h3>Jogos</h3><span>Minecraft, Valorant e a franquia Souls</span></article>
           <article class="papel papel--2 aparece"><h3>Séries</h3><span>Breaking Bad, The Walking Dead, The Mentalist e Shadowhunters</span></article>
           <article class="papel papel--3 aparece"><h3>RPG</h3><span>Daggerheart, D&amp;D e Ordem Paranormal</span></article>
-          <article class="papel papel--4 aparece"><h3>Pokémon</h3><span>minha elite: Greninja, Victreebel, Jolteon, Tyranitar e Gardevoir</span></article>
+          <article class="papel papel--4 aparece"><h3>Pokémon</h3><span>meu time dos sonhos: Greninja, Victreebel, Jolteon, Tyranitar e Gardevoir</span></article>
         </div>
       </div>
     </section>
@@ -702,11 +704,17 @@
 
       /* ---------- 1. Entrada suave ao rolar ---------- */
       var itens = document.querySelectorAll('.aparece');
+      var direcaoScroll = 1, ultimaRolagem = window.scrollY;
       if ('IntersectionObserver' in window && !reduzir) {
         var obs = new IntersectionObserver(function (entradas) {
           entradas.forEach(function (e) {
-            /* também revela o que ficou ACIMA da tela (ex.: abrir direto em #contato) */
-            if (e.isIntersecting || e.boundingClientRect.bottom < 0) { e.target.classList.add('entrou'); obs.unobserve(e.target); }
+            /* alterna a classe nos dois sentidos para animar ao descer e ao subir */
+            if (e.isIntersecting) {
+              e.target.style.setProperty('--reveal-y', direcaoScroll < 0 ? '-20px' : '20px');
+              e.target.classList.add('entrou');
+            } else {
+              e.target.classList.remove('entrou');
+            }
           });
         }, { threshold: 0.01, rootMargin: '0px 0px -5% 0px' });
         itens.forEach(function (el) { obs.observe(el); });
@@ -753,6 +761,9 @@
       }
       var pendente = false;
       window.addEventListener('scroll', function () {
+        var posicaoAtual = window.scrollY;
+        if (posicaoAtual !== ultimaRolagem) direcaoScroll = posicaoAtual > ultimaRolagem ? 1 : -1;
+        ultimaRolagem = posicaoAtual;
         if (pendente) return;
         pendente = true;
         requestAnimationFrame(function () { mover(); pendente = false; });
@@ -765,7 +776,7 @@
          Coordenadas num espaço de 1000 x 625. Edite os textos à vontade.
          Pokébox e FORJA são os projetos pessoais em andamento. */
       var MENTE = {
-        centro: { rotulo: 'Andre', x: 500, y: 300 },
+        centro: { rotulo: 'André', x: 500, y: 300 },
         ramos: [
           { rotulo: 'Como eu sou', x: 200, y: 160, folhas: [
             { rotulo: 'simpático',          x: 90,  y: 50  },
@@ -773,10 +784,10 @@
             { rotulo: 'prestativo',         x: 80,  y: 275 },
             { rotulo: 'fácil de conversar', x: 255, y: 290 } ] },
           { rotulo: 'O que me move', x: 800, y: 160, folhas: [
-            { rotulo: 'Minecraft', x: 700, y: 55  },
-            { rotulo: 'Breaking Bad', x: 905, y: 50  },
-            { rotulo: 'Daggerheart', x: 710, y: 285 },
-            { rotulo: 'Greninja', x: 900, y: 280 } ] },
+            { rotulo: 'Familia', x: 700, y: 55  },
+            { rotulo: 'Amigos', x: 905, y: 50  },
+            { rotulo: 'Estudos', x: 710, y: 285 },
+            { rotulo: 'Diversão', x: 900, y: 280 } ] },
           { rotulo: 'Ideias em andamento', x: 500, y: 470, folhas: [
             { rotulo: 'projetos em React',      x: 215, y: 500 },
             { rotulo: 'RADAR (ESP32)', x: 790, y: 500 },
@@ -812,19 +823,27 @@
         el.style.top = (n.y / 6.25) + '%';
         mapa.appendChild(el);
       }
-      function chip(texto, tag) {
-        var s = document.createElement(tag);
-        s.textContent = texto;
-        lista.appendChild(s);
-      }
-
       MENTE.ramos.forEach(function (r) {
         ligar(MENTE.centro, r);
         r.folhas.forEach(function (f) { ligar(r, f); });
       });
       MENTE.ramos.forEach(function (r) {
-        no(r, 'no--hub'); chip(r.rotulo, 'b');
-        r.folhas.forEach(function (f) { no(f, 'no--folha'); chip(f.rotulo, 'span'); });
+        no(r, 'no--hub');
+        r.folhas.forEach(function (f) { no(f, 'no--folha'); });
+
+        var cartao = document.createElement('article');
+        cartao.className = 'lista__ramo';
+        var titulo = document.createElement('h3');
+        titulo.textContent = r.rotulo;
+        var folhas = document.createElement('ul');
+        r.folhas.forEach(function (f) {
+          var item = document.createElement('li');
+          item.textContent = f.rotulo;
+          folhas.appendChild(item);
+        });
+        cartao.appendChild(titulo);
+        cartao.appendChild(folhas);
+        lista.appendChild(cartao);
       });
       no(MENTE.centro, 'no--centro');
 
