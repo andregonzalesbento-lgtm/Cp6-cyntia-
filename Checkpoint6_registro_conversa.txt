@@ -213,3 +213,42 @@ Funciona sem JavaScript, foco visível, aria-labels, menu semântico;
 mapa mental vira lista no celular; breakpoints de 960 a 600px.
 
 
+
+
+=====================================================================
+ATUALIZAÇÃO FINAL - INTERAÇÕES, RESPONSIVIDADE E PUBLICAÇÃO
+=====================================================================
+
+ALTERAÇÕES REGISTRADAS NO PORTFÓLIO
+- Idade atualizada para 19 anos nas áreas de apresentação e perfil.
+- Animações de entrada dos elementos ajustadas para responder ao scroll
+  nos dois sentidos, respeitando a preferência por movimento reduzido.
+- Na seção Gostos, capas de jogos e séries e artes de RPG e Pokémon
+  aparecem ao passar o mouse ou ao tocar nos cartões em telas touch.
+  As capas de Jogos foram mantidas em 78 px no desktop e distribuídas
+  pela lateral e pela parte inferior do cartão. Séries ficou com três
+  imagens; RPG também mostra até três. As cartas Pokémon mantiveram o
+  arranjo aprovado.
+- No topo, foi aumentado o espaço entre os botões “Me conhecer” e
+  “Falar comigo” e o sol decorativo.
+- O mapa mental troca o diagrama por cartões em telas menores, preserva
+  André como centro e realça discretamente o nome e os três nós
+  principais no diagrama amplo.
+- Os cartões de Profissão e Projetos recebem destaque sutil ao passar
+  o mouse ou ao atravessarem o centro da tela durante o scroll: elevação
+  de 4 px e escala de 1,012, com apenas um cartão em foco por vez.
+- Pokébox e FORJA foram centralizados como par na segunda linha em
+  telas largas.
+
+DECISÕES E ITENS NÃO ALTERADOS
+- Metadados e link de contato foram mantidos conforme orientação.
+- Links de repositórios não foram incluídos, pois não serão fornecidos.
+- A pendência documental antiga permanece para ajuste posterior pelo
+  André, que informou não ter mais os códigos antigos.
+- A publicação na Vercel não foi realizada.
+
+PUBLICAÇÃO NO GITHUB
+- Repositório: andregonzalesbento-lgtm/Cp6-cyntia-
+- Branch: main
+- Commit enviado: f85c980 - Enhance portfolio interactions and mind map
+- Arquivos do portfólio e imagens da pasta assets/gostos foram incluídos.
